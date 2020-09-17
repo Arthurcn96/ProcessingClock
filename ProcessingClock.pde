@@ -1,10 +1,4 @@
 import peasy.*;
-import shapes3d.*;
-import shapes3d.contour.*;
-import shapes3d.org.apache.commons.math.*;
-import shapes3d.org.apache.commons.math.geometry.*;
-import shapes3d.path.*;
-import shapes3d.utils.*;
 
 PeasyCam cam;
 Mostrador tela;
