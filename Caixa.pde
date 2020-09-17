@@ -1,5 +1,5 @@
 // Corpo do relógio onde as peças são montadas
-Class Caixa{
+class Caixa{
 
   Caixa(){
 

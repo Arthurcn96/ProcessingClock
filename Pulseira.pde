@@ -1,5 +1,5 @@
 // Pulseira do relógio
-Class Pulseira{
+class Pulseira{
 
   Pulseira(){
 

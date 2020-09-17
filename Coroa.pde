@@ -1,5 +1,5 @@
 // Knob para ajustar a hora
-Class Coroa{
+class Coroa{
 
   Coroa(){
 

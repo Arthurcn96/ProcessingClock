@@ -1,5 +1,5 @@
 // Mecanismo interno
-Class Calibre{
+class Calibre{
 
   Calibre(){
 

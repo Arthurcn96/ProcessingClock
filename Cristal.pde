@@ -1,5 +1,5 @@
 //Vidro do relógio
-Class Cristal{
+class Cristal{
 
   Cristal(){
 

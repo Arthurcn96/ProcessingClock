@@ -1,5 +1,5 @@
 // Botão para ligar luz (Nem todo relógio tem)
-Class Botao{
+class Botao{
 
   Botao(){
 
