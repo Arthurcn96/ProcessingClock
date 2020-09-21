@@ -3,7 +3,7 @@ import peasy.*;
 PeasyCam cam;
 Mostrador tela;
 void setup() {
-   size(400, 400, P3D);   
+   size(400, 400, P2D);   
    cursor(HAND);
    strokeCap(ROUND);
    
@@ -19,9 +19,16 @@ void setup() {
 void draw()  {
   background(2);
 
+  translate(200,200);
   
   
   tela.show();
+  
+        push();
+          fill(255,255,255);
+          circle(0,0,10);
+          fill(255,255,255);
+        pop();
   
   frameRate(60);
    
