@@ -1,6 +1,3 @@
-import peasy.PeasyCam;
-PeasyCam cam;
-
 Mostrador mostrador;
 Caixa caixa;
 
@@ -16,9 +13,6 @@ void setup() {
    caixa = new Caixa();
    
    smooth(8);
-   
-     //cam = new PeasyCam(this, 400);
-  
 
 }
 
