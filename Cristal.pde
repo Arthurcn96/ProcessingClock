@@ -4,4 +4,8 @@ class Cristal{
   Cristal(){
 
   }
+  
+  void show(){
+    
+  }
 }

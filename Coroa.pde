@@ -4,4 +4,8 @@ class Coroa{
   Coroa(){
 
   }
+  
+  void show(){
+    
+  }
 }

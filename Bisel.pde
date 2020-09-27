@@ -4,4 +4,8 @@ class Bisel{
   Bisel(){
 
   }
+  
+  void show(){
+    
+  }
 }
