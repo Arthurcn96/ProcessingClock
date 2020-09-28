@@ -1,24 +1,32 @@
 // Parte frontal do relógio - Ponteiros e Cronometros
 class Mostrador {
 
-  Mostrador(){
+  int h;
+  int m;
+  int s;
+  int dist;
+
+  color primary = #E5532D;
+  color secondary = #FAC741;
+  color tertirary = #61D9CF;
+
+  Mostrador(int translate){
+
+    dist = translate;
 
   }
 
   void show(){
 
-    int h = hour();
-    int m = minute();
-    int s = second();
+    h = hour();
+    m = minute();
+    s = second();
 
-    color primary = #E5532D;
-    color secondary = #FAC741;
-    color tertirary = #61D9CF;
 
     pushMatrix();
 
-      translate(0,0);
-      rotate(radians(-90));
+      translate(0,0,dist);
+      rotate(radians(-50));
 
       //Segundo
       strokeWeight(5);

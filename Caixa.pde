@@ -5,9 +5,9 @@ class Caixa{
 
   Caixa(){
       s = createShape();
-      
+
       s.beginShape();
-        s.vertex( 0.000000, 5.000000, 0.672764);            
+        s.vertex( 0.000000, 5.000000, 0.672764);
         s.vertex( 2.500000, 4.330127, 0.672764);
         s.vertex( 4.330127, 2.500000, 0.672764);
         s.vertex( 5.000000 ,-0.000000, 0.672764);
@@ -21,12 +21,12 @@ class Caixa{
         s.vertex( -2.500003, 4.330125, 0.672764);
         s.vertex( 0.000000, 5.000000, 0.672764);
       s.endShape();
-      
-      
+
+
         s.scale(40);
         s.setStroke(2);
   }
-  
+
   void show(){
       push();
       translate(0,0,-50);

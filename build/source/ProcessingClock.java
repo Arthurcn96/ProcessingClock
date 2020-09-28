@@ -16,78 +16,124 @@ public class ProcessingClock extends PApplet {
 
 Mostrador mostrador;
 Caixa caixa;
-Quadrado quadrado;
 
 float xmag, ymag = 0;
 float newXmag, newYmag = 0;
 int zoom = 0;
-int mX = 200, mY = 200;
+int mX, mY;
 
-boolean sc = true;
-boolean nc = false;
+
+int dim = 6;
+Quadrado[][] quadrado = new Quadrado[dim][dim];
 
 public void setup() {
-   
-   cursor(HAND);
+  
+  cursor(HAND);
 
-   boolean[][] meuCubo = { {nc, sc, sc, nc},
-                           {sc, nc, nc, sc},
-                           {sc, nc, nc, sc},
-                           {nc, sc, sc, nc}  };
+  mostrador = new Mostrador(35);
+  caixa = new Caixa();
 
-   // mostrador = new Mostrador();
-   // caixa = new Caixa();
-   quadrado = new Quadrado(20,10, meuCubo);
+  createQuadrado(6);
 
-   
+  mX = (width / 2) + dim;
+  mY = (height / 2);
 
+  
 }
 
-public void draw()  {
+public void draw() {
   background(101);
 
-  //translate(mouseX,mouseY);
-  translate(mX, mY,zoom);
-  rotateX(-ymag);
-  rotateY(-xmag);
+  camera();
 
   // Carregando partes do Relógio
-  // caixa.show();
-  // mostrador.show();
-  quadrado.show();
+  //caixa.show();
+  mostrador.show();
+  showQuadrado();
 
-  // circle(0,0,10);
+  pushMatrix();
+    fill(0xff000000);
+    translate(0,0,20);
+    sphere(20);
+  popMatrix();
+
+
+
 }
 
-public void mouseDragged(){
+public void mouseDragged() {
 
   if (mouseButton == LEFT) {
-      newXmag = mouseX/PApplet.parseFloat(width) * TWO_PI;
-      newYmag = mouseY/PApplet.parseFloat(height) * TWO_PI;
+    newXmag = mouseX/PApplet.parseFloat(width) * TWO_PI;
+    newYmag = mouseY/PApplet.parseFloat(height) * TWO_PI;
 
-      float diff = xmag-newXmag;
-      if (abs(diff) >  0.01f) {
-        xmag -= diff/4.0f;
-      }
+    float diff = xmag-newXmag;
+    if (abs(diff) >  0.01f) {
+      xmag -= diff/4.0f;
+    }
 
-      diff = ymag-newYmag;
-      if (abs(diff) >  0.01f) {
-        ymag -= diff/4.0f;
-      }
-  }if (mouseButton == RIGHT || mouseButton == CENTER) {
+    diff = ymag-newYmag;
+    if (abs(diff) >  0.01f) {
+      ymag -= diff/4.0f;
+    }
+  }
+  if (mouseButton == RIGHT || mouseButton == CENTER) {
     mX = mouseX;
     mY = mouseY;
-
   }
 }
 
 public void mousePressed() {
-
 }
 
 public void mouseWheel(MouseEvent event) {
   float e = event.getCount();
   zoom += e*10;
+}
+
+/** Criacção dos quadrados
+*/
+public void createQuadrado(int len_){
+
+  int len = len_;
+  int offset;
+  int x;
+  int y;
+
+  for (int i = 0; i < dim; i++) {
+    for (int j = 0; j < dim; j++) {
+
+      offset = (dim*len)/2 - len/2;
+      x = len * i - offset;
+      y = len * j - offset;
+      quadrado[i][j] = new Quadrado(x, y, len);
+    }
+  }
+}
+
+/**
+Mostra os quadrados em tela
+*/
+public void showQuadrado(){
+  for (int i = 0; i < dim; i++) {
+    for (int j = 0; j < dim; j++) {
+
+      pushMatrix();
+      scale(10);
+      noStroke();
+      quadrado[i][j].show();
+      popMatrix();
+    }
+  }
+}
+
+/**
+Rotacao da Camera
+*/
+public void camera(){
+  translate(mX, mY, zoom);
+  rotateX(-ymag);
+  rotateY(-xmag);
 }
 // Marcação do Minuto - acima do cristal (Nem todo relógio tem)
 class Bisel{
@@ -118,9 +164,9 @@ class Caixa{
 
   Caixa(){
       s = createShape();
-      
+
       s.beginShape();
-        s.vertex( 0.000000f, 5.000000f, 0.672764f);            
+        s.vertex( 0.000000f, 5.000000f, 0.672764f);
         s.vertex( 2.500000f, 4.330127f, 0.672764f);
         s.vertex( 4.330127f, 2.500000f, 0.672764f);
         s.vertex( 5.000000f ,-0.000000f, 0.672764f);
@@ -134,12 +180,12 @@ class Caixa{
         s.vertex( -2.500003f, 4.330125f, 0.672764f);
         s.vertex( 0.000000f, 5.000000f, 0.672764f);
       s.endShape();
-      
-      
+
+
         s.scale(40);
         s.setStroke(2);
   }
-  
+
   public void show(){
       push();
       translate(0,0,-50);
@@ -183,24 +229,32 @@ class Cristal{
 // Parte frontal do relógio - Ponteiros e Cronometros
 class Mostrador {
 
-  Mostrador(){
+  int h;
+  int m;
+  int s;
+  int dist;
+
+  int primary = 0xffE5532D;
+  int secondary = 0xffFAC741;
+  int tertirary = 0xff61D9CF;
+
+  Mostrador(int translate){
+
+    dist = translate;
 
   }
 
   public void show(){
 
-    int h = hour();
-    int m = minute();
-    int s = second();
+    h = hour();
+    m = minute();
+    s = second();
 
-    int primary = 0xffE5532D;
-    int secondary = 0xffFAC741;
-    int tertirary = 0xff61D9CF;
 
     pushMatrix();
 
-      translate(0,0);
-      rotate(radians(-90));
+      translate(0,0,dist);
+      rotate(radians(-50));
 
       //Segundo
       strokeWeight(5);
@@ -259,32 +313,21 @@ class Pulseira{
 // Quadrado do relógio
 class Quadrado{
 
-  int h;
-  int s;
-  int i;
-  boolean[][] cubo;
+  PVector pos;
+  float len;
 
-  Quadrado(int lado, int tamanho, boolean matrix[][]){
-    h = lado;
-    s = tamanho;
-    i = 0;
-    cubo = matrix;
+  Quadrado(int x, int y, int len_){
+    pos = new PVector(x,y);
+    len = len_;
   }
 
   public void show(){
-
-
-    // scale(s);
-    // noStroke();
-    // int i = 0;
-    for (i; i < cubo.length; i = i+1) {
-      print( i );
-    }
-
-    box(h);
-
-
-  }
+     fill(255);
+     pushMatrix();
+       translate(pos.x, pos.y, pos.z);
+       box(len);
+     popMatrix();
+   }
 }
   public void settings() {  size(400, 400, P3D);  smooth(8); }
   static public void main(String[] passedArgs) {
