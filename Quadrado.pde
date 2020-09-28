@@ -1,30 +1,28 @@
 // Quadrado do relógio
 class Quadrado{
 
-  int h;
-  int s;
-  int i;
-  boolean[][] cubo;
+  PVector pos;
+  float len;
+  
+  
 
-  Quadrado(int lado, int tamanho, boolean matrix[][]){
-    h = lado;
-    s = tamanho;
-    i = 0;
-    cubo = matrix;
+  Quadrado(int x, int y, int len_){
+    pos = new PVector(x,y);
+    len = len_;
   }
 
   void show(){
 
 
-    // scale(s);
-    // noStroke();
-    // int i = 0;
-    for (i; i < cubo.length; i = i+1) {
-      print( i );
-    }
+     //strokeWeight(8);
+     fill(255);
+     pushMatrix();
+       
+       translate(pos.x, pos.y, pos.z);
+       box(len);
+     popMatrix();
+      
+      
+   }
 
-    box(h);
-
-
-  }
 }

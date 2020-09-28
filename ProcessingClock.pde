@@ -1,27 +1,36 @@
 Mostrador mostrador;
 Caixa caixa;
-Quadrado quadrado;
 
 float xmag, ymag = 0;
 float newXmag, newYmag = 0;
 int zoom = 0;
-int mX = 200, mY = 200;
+int mX, mY;
 
-boolean sc = true;
-boolean nc = false;
+
+int dim = 3;
+Quadrado[][] quadrado = new Quadrado[dim][dim];
 
 void setup() {
    size(400, 400, P3D);
    cursor(HAND);
-
-   boolean[][] meuCubo = { {nc, sc, sc, nc},
-                           {sc, nc, nc, sc},
-                           {sc, nc, nc, sc},
-                           {nc, sc, sc, nc}  };
-
-   // mostrador = new Mostrador();
-   // caixa = new Caixa();
-   quadrado = new Quadrado(20,10, meuCubo);
+   
+   mostrador = new Mostrador();
+   caixa = new Caixa();
+   
+   for(int i = 0; i < dim; i++){
+     for(int j = 0; j < dim; j++){
+     
+       int len = 10;
+       int offset = (dim*len)/2 - len/2;
+       int x = len * i - offset;
+       int y = len * j - offset;
+       quadrado[i][j] = new Quadrado(x,y,len);
+       
+     }
+   }
+   
+   mX = (width / 2) + dim*7;
+   mY = (height / 2);
 
    smooth(8);
 
@@ -31,14 +40,24 @@ void draw()  {
   background(101);
 
   //translate(mouseX,mouseY);
-  translate(mX, mY,zoom);
+  translate(mX-20, mY,zoom);
   rotateX(-ymag);
   rotateY(-xmag);
 
   // Carregando partes do Relógio
-  // caixa.show();
-  // mostrador.show();
-  quadrado.show();
+   //caixa.show();
+    mostrador.show();
+  
+   for(int i = 0; i < dim; i++){
+     for(int j = 0; j < dim; j++){
+       
+       pushMatrix();
+       scale(10);
+       noStroke();
+       quadrado[i][j].show();
+       popMatrix();
+     }
+   }
 
   // circle(0,0,10);
 }
