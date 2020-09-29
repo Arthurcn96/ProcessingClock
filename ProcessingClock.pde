@@ -6,38 +6,47 @@ float newXmag, newYmag = 0;
 int zoom = 0;
 int mX, mY;
 
+int[][] relo = {  {0,0,1,1,1,1,0,0},
+                  {0,1,0,0,0,0,1,0}, 
+                  {1,0,0,0,0,0,0,1},
+                  {1,0,0,0,0,0,0,1}, 
+                  {1,0,0,0,0,0,0,1},
+                  {1,0,0,0,0,0,0,1}, 
+                  {0,1,0,0,0,0,1,0}, 
+                  {0,0,1,1,1,1,0,0} };
 
-int dim = 6;
+int dim = 8;
+int tam = 60;
 Quadrado[][] quadrado = new Quadrado[dim][dim];
 
 void setup() {
   size(400, 400, P3D);
   cursor(HAND);
 
-  mostrador = new Mostrador(35);
+  mostrador = new Mostrador(0);
   caixa = new Caixa();
 
-  createQuadrado(6);
+  createQuadrado(tam, relo, true);
 
   mX = (width / 2) + dim;
   mY = (height / 2);
 
   smooth(8);
+ 
 }
 
 void draw() {
   background(101);
-
   camera();
 
   // Carregando partes do Relógio
   //caixa.show();
-  mostrador.show();
   showQuadrado();
+  mostrador.show();
+  
 
   pushMatrix();
     fill(#000000);
-    translate(0,0,20);
     sphere(20);
   popMatrix();
 
@@ -77,7 +86,7 @@ void mouseWheel(MouseEvent event) {
 
 /** Criacção dos quadrados
 */
-void createQuadrado(int len_){
+void createQuadrado(int len_, int[][] matrix, boolean border){
 
   int len = len_;
   int offset;
@@ -90,7 +99,10 @@ void createQuadrado(int len_){
       offset = (dim*len)/2 - len/2;
       x = len * i - offset;
       y = len * j - offset;
-      quadrado[i][j] = new Quadrado(x, y, len);
+      if(relo[i][j] == 1){
+        quadrado[i][j] = new Quadrado(x, y, len, border);
+      }
+      
     }
   }
 }
@@ -103,9 +115,12 @@ void showQuadrado(){
     for (int j = 0; j < dim; j++) {
 
       pushMatrix();
-      scale(10);
+      //scale(10);
       noStroke();
-      quadrado[i][j].show();
+      if(relo[i][j] == 1){
+        quadrado[i][j].show();
+      }
+      
       popMatrix();
     }
   }

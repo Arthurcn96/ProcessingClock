@@ -43,7 +43,6 @@ public void setup() {
 
 public void draw() {
   background(101);
-
   camera();
 
   // Carregando partes do Relógio
@@ -93,7 +92,7 @@ public void mouseWheel(MouseEvent event) {
 
 /** Criacção dos quadrados
 */
-public void createQuadrado(int len_){
+public void createQuadrado(int len_, int[][] matrix){
 
   int len = len_;
   int offset;
@@ -322,6 +321,7 @@ class Quadrado{
   }
 
   public void show(){
+    strokeWeight(1);
      fill(255);
      pushMatrix();
        translate(pos.x, pos.y, pos.z);
