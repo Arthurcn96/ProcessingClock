@@ -6,7 +6,7 @@ float newXmag, newYmag = 0;
 int zoom = 0;
 int mX, mY;
 
-int[][] relo = {  {0,0,1,1,1,1,0,0},
+int[][] shape = {  {0,0,1,1,1,1,0,0},
                   {0,1,0,0,0,0,1,0}, 
                   {1,0,0,0,0,0,0,1},
                   {1,0,0,0,0,0,0,1}, 
@@ -26,7 +26,7 @@ void setup() {
   mostrador = new Mostrador(0);
   caixa = new Caixa();
 
-  createQuadrado(tam, relo, true);
+  createQuadrado(tam, shape, true);
 
   mX = (width / 2) + dim;
   mY = (height / 2);
@@ -41,8 +41,10 @@ void draw() {
 
   // Carregando partes do Relógio
   //caixa.show();
-  showQuadrado();
+ 
   mostrador.show();
+  showQuadrado();
+  
   
 
   pushMatrix();
@@ -99,7 +101,7 @@ void createQuadrado(int len_, int[][] matrix, boolean border){
       offset = (dim*len)/2 - len/2;
       x = len * i - offset;
       y = len * j - offset;
-      if(relo[i][j] == 1){
+      if(shape[i][j] == 1){
         quadrado[i][j] = new Quadrado(x, y, len, border);
       }
       
@@ -117,7 +119,7 @@ void showQuadrado(){
       pushMatrix();
       //scale(10);
       noStroke();
-      if(relo[i][j] == 1){
+      if(shape[i][j] == 1){
         quadrado[i][j].show();
       }
       
