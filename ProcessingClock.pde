@@ -7,12 +7,12 @@ int zoom = 0;
 int mX, mY;
 
 int[][] shape = {  {0,0,1,1,1,1,0,0},
-                  {0,1,0,0,0,0,1,0}, 
+                  {0,1,0,0,0,0,1,0},
                   {1,0,0,0,0,0,0,1},
-                  {1,0,0,0,0,0,0,1}, 
                   {1,0,0,0,0,0,0,1},
-                  {1,0,0,0,0,0,0,1}, 
-                  {0,1,0,0,0,0,1,0}, 
+                  {1,0,0,0,0,0,0,1},
+                  {1,0,0,0,0,0,0,1},
+                  {0,1,0,0,0,0,1,0},
                   {0,0,1,1,1,1,0,0} };
 
 int dim = 8;
@@ -32,7 +32,7 @@ void setup() {
   mY = (height / 2);
 
   smooth(8);
- 
+
 }
 
 void draw() {
@@ -41,11 +41,11 @@ void draw() {
 
   // Carregando partes do Relógio
   //caixa.show();
- 
+
   mostrador.show();
   showQuadrado();
-  
-  
+
+
 
   pushMatrix();
     fill(#000000);
@@ -104,7 +104,7 @@ void createQuadrado(int len_, int[][] matrix, boolean border){
       if(shape[i][j] == 1){
         quadrado[i][j] = new Quadrado(x, y, len, border);
       }
-      
+
     }
   }
 }
@@ -122,7 +122,7 @@ void showQuadrado(){
       if(shape[i][j] == 1){
         quadrado[i][j].show();
       }
-      
+
       popMatrix();
     }
   }
