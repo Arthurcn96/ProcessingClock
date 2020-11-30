@@ -1,32 +1,26 @@
 Mostrador mostrador;
+Fundo fundo;
 Caixa caixa;
 
-float xmag, ymag = 0;
+color color1;
+color color2;
+color color3;
+
 float newXmag, newYmag = 0;
-int zoom = 0;
+float xmag, ymag = 0;
+int zoom = -120;
 int mX, mY;
 
-int[][] shape = {  {0,0,1,1,1,1,0,0},
-                  {0,1,0,0,0,0,1,0},
-                  {1,0,0,0,0,0,0,1},
-                  {1,0,0,0,0,0,0,1},
-                  {1,0,0,0,0,0,0,1},
-                  {1,0,0,0,0,0,0,1},
-                  {0,1,0,0,0,0,1,0},
-                  {0,0,1,1,1,1,0,0} };
-
 int dim = 8;
-int tam = 60;
-Quadrado[][] quadrado = new Quadrado[dim][dim];
+int tam = 50;
 
 void setup() {
   size(400, 400, P3D);
   cursor(HAND);
 
   mostrador = new Mostrador(0);
-  caixa = new Caixa();
-
-  createQuadrado(tam, shape, true);
+  caixa = new Caixa(tam, false);
+  fundo = new Fundo();
 
   mX = (width / 2) + dim;
   mY = (height / 2);
@@ -36,26 +30,27 @@ void setup() {
 }
 
 void draw() {
-  background(101);
+  color1 = color(#222831);
+  color2 = color(#ffd369);
+  color3 = color(#393e46);
+
+  background(color1);
   camera();
 
   // Carregando partes do Relógio
-  //caixa.show();
-
+  caixa.show(color(color2));
+  fundo.show(color(color3));
   mostrador.show();
-  showQuadrado();
-
-
 
   pushMatrix();
-    fill(#000000);
-    sphere(20);
+    sphere(10);
   popMatrix();
-
-
 
 }
 
+/**
+ Opcoes da Camera
+*/
 void mouseDragged() {
 
   if (mouseButton == LEFT) {
@@ -78,59 +73,11 @@ void mouseDragged() {
   }
 }
 
-void mousePressed() {
-}
-
 void mouseWheel(MouseEvent event) {
   float e = event.getCount();
   zoom += e*10;
 }
 
-/** Criacção dos quadrados
-*/
-void createQuadrado(int len_, int[][] matrix, boolean border){
-
-  int len = len_;
-  int offset;
-  int x;
-  int y;
-
-  for (int i = 0; i < dim; i++) {
-    for (int j = 0; j < dim; j++) {
-
-      offset = (dim*len)/2 - len/2;
-      x = len * i - offset;
-      y = len * j - offset;
-      if(shape[i][j] == 1){
-        quadrado[i][j] = new Quadrado(x, y, len, border);
-      }
-
-    }
-  }
-}
-
-/**
-Mostra os quadrados em tela
-*/
-void showQuadrado(){
-  for (int i = 0; i < dim; i++) {
-    for (int j = 0; j < dim; j++) {
-
-      pushMatrix();
-      //scale(10);
-      noStroke();
-      if(shape[i][j] == 1){
-        quadrado[i][j].show();
-      }
-
-      popMatrix();
-    }
-  }
-}
-
-/**
-Rotacao da Camera
-*/
 void camera(){
   translate(mX, mY, zoom);
   rotateX(-ymag);

@@ -1,36 +1,42 @@
 // Corpo do relógio onde as peças são montadas
-PShape s;
-
 class Caixa{
 
-  Caixa(){
-      s = createShape();
+  int len;
+  Voxel voxel;
+  boolean borda;
 
-      s.beginShape();
-        s.vertex( 0.000000, 5.000000, 0.672764);
-        s.vertex( 2.500000, 4.330127, 0.672764);
-        s.vertex( 4.330127, 2.500000, 0.672764);
-        s.vertex( 5.000000 ,-0.000000, 0.672764);
-        s.vertex( 4.330127 ,-2.500000, 0.672764);
-        s.vertex( 2.500000 ,-4.330127, 0.672764);
-        s.vertex( 0.000001 ,-5.000000, 0.672764);
-        s.vertex( -2.499999 ,-4.330128, 0.672764);
-        s.vertex( -4.330126 ,-2.500001, 0.672764);
-        s.vertex( -5.000000 ,-0.000002, 0.672764);
-        s.vertex( -4.330129, 2.499997, 0.672764);
-        s.vertex( -2.500003, 4.330125, 0.672764);
-        s.vertex( 0.000000, 5.000000, 0.672764);
-      s.endShape();
+  Caixa(int len_, boolean border_){
 
+    len = len_;
+    borda = border_;
+    voxel = new Voxel(len_, false);
 
-        s.scale(40);
-        s.setStroke(2);
   }
 
-  void show(){
-      push();
-      translate(0,0,-50);
-      shape(s, 0, 0);
-      pop();
+  void show(color c){
+    int radius = 50;
+    int npoints = 25;
+
+    push();
+      translate(-len/2, -len*4);
+      polygon(0, 0, radius, npoints, c); // Icosagon
+    pop();
+
   }
+
+  void polygon(int x, int y, float radius, int npoints, color c){
+    float angle = (TWO_PI / npoints);
+    float sx, sy;
+
+
+    for (float a = 0; a < TWO_PI; a += angle){
+      sx = x + cos(a) * radius;
+      sy = y + sin(a) * radius;
+      fill(c);
+      voxel.show(sx, sy, c);
+    }
+
+  }
+
+
 }
