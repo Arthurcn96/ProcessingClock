@@ -18,7 +18,7 @@ class Mostrador {
 
   void show(){
 
-    h = hour();
+    h = hour() -1;
     m = minute();
     s = second();
 
@@ -26,10 +26,10 @@ class Mostrador {
     pushMatrix();
 
       translate(0,0,dist);
-      rotate(radians(-50));
+      rotate(radians(-90));
 
       //Segundo
-      strokeWeight(5);
+      strokeWeight(6);
       stroke(primary);
       noFill();
       float end = map(s, 0, 60, 0, 360);
@@ -42,7 +42,7 @@ class Mostrador {
       pop();
 
       //Minuto
-      strokeWeight(10);
+      strokeWeight(8);
       stroke(secondary);
       float end1 = map(m, 0, 60, 0, 360);
       arc(0, 0, 280, 280, 0, radians(end1));
@@ -54,7 +54,7 @@ class Mostrador {
       pop();
 
       //Hora
-      strokeWeight(15);
+      strokeWeight(10);
       stroke(tertirary);
       float end2 = map(h % 12, 0, 12, 0, 360);
       arc(0, 0, 250, 250, 0, radians(end2));

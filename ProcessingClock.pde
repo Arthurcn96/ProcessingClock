@@ -43,7 +43,7 @@ void draw() {
   mostrador.show();
 
   pushMatrix();
-    sphere(10);
+    sphere(5);
   popMatrix();
 
 }
