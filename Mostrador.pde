@@ -6,7 +6,7 @@ class Mostrador {
   int s;
   int dist;
 
-  color primary = #DEB46B;
+  color primary = #ff6666;
   color secondary = #ffffff;
   color tertirary = #b3b3b3;
 
