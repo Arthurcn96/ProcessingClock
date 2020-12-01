@@ -27,12 +27,12 @@ void setup() {
 
   smooth(8);
 
+  color1 = color(#222831);
+  color2 = color(#ee3333);
+  color3 = color(#202020);
 }
 
 void draw() {
-  color1 = color(#222831);
-  color2 = color(#ffd369);
-  color3 = color(#393e46);
 
   background(color1);
   camera();
