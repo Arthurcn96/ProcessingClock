@@ -1,3 +1,7 @@
+// import ddf.minim.*;
+// Minim minim;
+// AudioPlayer song;
+
 Mostrador mostrador;
 Fundo fundo;
 Caixa caixa;
@@ -14,9 +18,14 @@ int mX, mY;
 int dim = 8;
 int tam = 50;
 
+
+
 void setup() {
-  size(400, 400, P3D);
+  size(800, 600, P3D);
   cursor(HAND);
+  // minim = new Minim(this);
+  // song = minim.loadFile("pacman.mp3");
+
 
   mostrador = new Mostrador(0);
   caixa = new Caixa(tam, false);
@@ -30,12 +39,67 @@ void setup() {
   color1 = color(#222831);
   color2 = color(#ee3333);
   color3 = color(#202020);
+
 }
 
 void draw() {
 
-  background(color1);
+  background(200);
   camera();
+
+  lights();
+  pointLight(mouseX/20, mouseY/20, 100, 400, 0, 0);
+  ambientLight(mouseX/20, mouseY/20, 100, 400, 0, 0);
+
+  textSize(22);
+  // text("'d' - play song", -380, 280);
+  // text("'f' - stop song", -380, 310);
+  fill(200);
+
+  if(keyPressed){
+
+     // if(key=='d' || key=='D'){
+     //   song.play();
+     //   song.unmute();
+     // }
+     //
+     // if(key=='f' || key=='F'){
+     //   song.mute();
+     // }
+
+    if(key=='a' || key == 'A'){
+      push();
+        textSize(22);
+        text("Ortho mode: [A KeyPressed] | Luz direcional", -380, -270);
+        text("mouseX: "+mouseX, -380, -240);
+        text("mouseY: "+mouseY, -380, -210);
+        fill(200);
+
+        directionalLight(0, 0, 100, 400, 0, 0);
+        ortho(-width/2, width/2, -height/2, height/2);
+      pop();
+
+    }
+
+    if(key == 's' || key == 'S'){
+       push();
+        textSize(22);
+        text("Perspective mode: [S KeyPressed] | Luz ambiente", -380, -270);
+        text("mouseX: "+mouseX, -380, -240);
+        text("mouseY: "+mouseY, -380, -210);
+        fill(200);
+
+        ambientLight(0, 0, 100, 400, 0, 0);
+        float camY = height/2.0;
+        float fov = mouseX/float(width) * PI/2;
+        float camZ = camY / tan(fov/2.0);
+        float aspect = float(width)/float(height);
+        perspective(fov, aspect, camZ/10, camZ*100);
+      pop();
+    }
+
+   }
+
 
   // Carregando partes do Relógio
   caixa.show(color(color2));
