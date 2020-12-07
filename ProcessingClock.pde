@@ -5,6 +5,7 @@
 Mostrador mostrador;
 Fundo fundo;
 Caixa caixa;
+PImage imagem;
 
 color color1;
 color color2;
@@ -17,8 +18,6 @@ int mX, mY;
 
 int dim = 8;
 int tam = 50;
-
-
 
 void setup() {
   size(800, 600, P3D);
@@ -38,13 +37,18 @@ void setup() {
 
   color1 = color(#222831);
   color2 = color(#ee3333);
-  color3 = color(#202020);
+  color3 = color(#2d51fd);
 
+  imagem = loadImage("fundo.jpg");
 }
 
 void draw() {
+  background(#77aaf5);
 
-  background(200);
+  push();
+    translate(-2500,-1200,-2000);
+    image(imagem, 0, 0);
+  pop();
   camera();
 
   lights();
