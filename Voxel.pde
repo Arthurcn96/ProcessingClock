@@ -11,6 +11,7 @@ class Voxel {
   }
 
   void show(float x, float y, color c){
+    push();
     translate(x, y);
 
     if(border){
@@ -24,6 +25,8 @@ class Voxel {
     pushMatrix();
     box(len);
     popMatrix();
+    pop();
+
   }
 
 

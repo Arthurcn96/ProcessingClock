@@ -14,11 +14,10 @@ class Caixa{
   }
 
   void show(color c){
-    int radius = 50;
+    int radius = 200;
     int npoints = 25;
 
     push();
-      translate(-len/2, -len*4);
       polygon(0, 0, radius, npoints, c); // Icosagon
     pop();
 
