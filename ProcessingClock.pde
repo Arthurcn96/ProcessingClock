@@ -1,17 +1,19 @@
 // import ddf.minim.*;
 // Minim minim;
 // AudioPlayer song;
+PImage imagem;
 
 Mostrador mostrador;
+Botao botao;
 Fundo fundo;
 Caixa caixa;
-PImage imagem;
 
 color color1;
 color color2;
 color color3;
 
 float newXmag, newYmag = 0;
+boolean botaoPressionado;
 float xmag, ymag = 0;
 int zoom = -120;
 int mX, mY;
@@ -29,6 +31,9 @@ void setup() {
   mostrador = new Mostrador(0);
   caixa = new Caixa(tam, false);
   fundo = new Fundo();
+  botao = new Botao();
+
+  botaoPressionado = false;
 
   mX = (width / 2) + dim;
   mY = (height / 2);
@@ -37,18 +42,27 @@ void setup() {
 
   color1 = color(#222831);
   color2 = color(#ee3333);
-  color3 = color(#2d51fd);
+  color3 = color(#1e41dc);
 
   imagem = loadImage("fundo.jpg");
+
+  inicio();
+}
+
+void inicio(){
+  String texto = "Funcionalidades:\n Texto\n Texto\n";
+  javax.swing.JOptionPane.showMessageDialog ( null, texto, "Imagem Salva", javax.swing.JOptionPane.INFORMATION_MESSAGE  );
 }
 
 void draw() {
-  background(#77aaf5);
+  background(#2d51fd);
 
   push();
     translate(-2500,-1200,-2000);
     image(imagem, 0, 0);
   pop();
+
+
   camera();
 
   lights();
@@ -60,52 +74,9 @@ void draw() {
   // text("'f' - stop song", -380, 310);
   fill(200);
 
-  if(keyPressed){
-
-     // if(key=='d' || key=='D'){
-     //   song.play();
-     //   song.unmute();
-     // }
-     //
-     // if(key=='f' || key=='F'){
-     //   song.mute();
-     // }
-
-    if(key=='a' || key == 'A'){
-      push();
-        textSize(22);
-        text("Ortho mode: [A KeyPressed] | Luz direcional", -380, -270);
-        text("mouseX: "+mouseX, -380, -240);
-        text("mouseY: "+mouseY, -380, -210);
-        fill(200);
-
-        directionalLight(0, 0, 100, 400, 0, 0);
-        ortho(-width/2, width/2, -height/2, height/2);
-      pop();
-
-    }
-
-    if(key == 's' || key == 'S'){
-       push();
-        textSize(22);
-        text("Perspective mode: [S KeyPressed] | Luz ambiente", -380, -270);
-        text("mouseX: "+mouseX, -380, -240);
-        text("mouseY: "+mouseY, -380, -210);
-        fill(200);
-
-        ambientLight(0, 0, 100, 400, 0, 0);
-        float camY = height/2.0;
-        float fov = mouseX/float(width) * PI/2;
-        float camZ = camY / tan(fov/2.0);
-        float aspect = float(width)/float(height);
-        perspective(fov, aspect, camZ/10, camZ*100);
-      pop();
-    }
-
-   }
-
 
   // Carregando partes do Relógio
+  botao.show(220,0, botaoPressionado);
   caixa.show(color(color2));
   fundo.show(color(color3));
   mostrador.show();
@@ -114,6 +85,60 @@ void draw() {
     sphere(5);
   popMatrix();
 
+
+
+}
+
+void keyPressed(){
+
+   // if(key=='d' || key=='D'){
+   //   song.play();
+   //   song.unmute();
+   // }
+   //
+   // if(key=='f' || key=='F'){
+   //   song.mute();
+   // }
+
+  if(key=='a' || key == 'A'){
+    push();
+      textSize(22);
+      text("Ortho mode: [A KeyPressed] | Luz direcional", -380, -270);
+      text("mouseX: "+mouseX, -380, -240);
+      text("mouseY: "+mouseY, -380, -210);
+      fill(200);
+
+      directionalLight(0, 0, 100, 400, 0, 0);
+      ortho(-width/2, width/2, -height/2, height/2);
+    pop();
+
+  }
+
+  if(key == 's' || key == 'S'){
+     push();
+      textSize(22);
+      text("Perspective mode: [S KeyPressed] | Luz ambiente", -380, -270);
+      text("mouseX: "+mouseX, -380, -240);
+      text("mouseY: "+mouseY, -380, -210);
+      fill(200);
+
+      ambientLight(0, 0, 100, 400, 0, 0);
+      float camY = height/2.0;
+      float fov = mouseX/float(width) * PI/2;
+      float camZ = camY / tan(fov/2.0);
+      float aspect = float(width)/float(height);
+      perspective(fov, aspect, camZ/10, camZ*100);
+      pop();
+  }
+
+  if(key == ' '){
+      botaoPressionado = !botaoPressionado;
+  }
+
+}
+
+void keyReleased(){
+  botaoPressionado = !botaoPressionado;;
 }
 
 /**
