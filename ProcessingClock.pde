@@ -50,7 +50,7 @@ void setup() {
 }
 
 void inicio(){
-  String texto = "Funcionalidades:\n Texto\n Texto\n";
+  String texto = "Funcionalidades:\n Espaço - Ativa o botão \n Texto\n";
   javax.swing.JOptionPane.showMessageDialog ( null, texto, "Imagem Salva", javax.swing.JOptionPane.INFORMATION_MESSAGE  );
 }
 
