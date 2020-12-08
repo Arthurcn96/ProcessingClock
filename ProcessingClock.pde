@@ -1,6 +1,6 @@
-// import ddf.minim.*;
-// Minim minim;
-// AudioPlayer song;
+import ddf.minim.*;
+Minim minim;
+AudioPlayer song;
 PImage imagem;
 
 Mostrador mostrador;
@@ -13,10 +13,12 @@ color color2;
 color color3;
 
 float newXmag, newYmag = 0;
-boolean botaoPressionado;
+boolean botaoPressionado, flag;
 float xmag, ymag = 0;
 int zoom = -120;
-int mX, mY;
+int mX, mY, temp;
+
+
 
 int dim = 8;
 int tam = 50;
@@ -24,9 +26,11 @@ int tam = 50;
 void setup() {
   size(800, 600, P3D);
   cursor(HAND);
-  // minim = new Minim(this);
-  // song = minim.loadFile("pacman.mp3");
+  minim = new Minim(this);
+  song = minim.loadFile("supermariobros.mp3");
+  temp = 1;
 
+  flag = false;
 
   mostrador = new Mostrador(0);
   caixa = new Caixa(tam, false);
@@ -50,8 +54,8 @@ void setup() {
 }
 
 void inicio(){
-  String texto = "Funcionalidades:\n Espaço - Ativa o botão \n Texto\n";
-  javax.swing.JOptionPane.showMessageDialog ( null, texto, "Manual", javax.swing.JOptionPane.INFORMATION_MESSAGE  );
+  String texto = "--------------------------------------- FUNCIONALIDADES ---------------------------------------\n['A' ou 'a'] - Muda para o modo perspectiva (2D caso veja diretamente X, Y sem movimentar)\n['S' ou 's'] - Retorna o background e aproxima a uma posição fixa do relógio\n[Espaço] - Liga/desliga o botão de trilha sonora \n[MouseWheelPressed ou MousePressed(LEFT)] - Arrasto de posição\n[MousePressed(RIGHT)] - Rotação nos eixos X, Y e Z\n[MouseShift] - Mudança de perspectiva nas luzes que incidem NO relógio";
+  javax.swing.JOptionPane.showMessageDialog ( null, texto, "Automatic", javax.swing.JOptionPane.INFORMATION_MESSAGE  );
 }
 
 void draw() {
@@ -69,11 +73,6 @@ void draw() {
   pointLight(mouseX/20, mouseY/20, 100, 400, 0, 0);
   ambientLight(mouseX/20, mouseY/20, 100, 400, 0, 0);
 
-  textSize(22);
-  // text("'d' - play song", -380, 280);
-  // text("'f' - stop song", -380, 310);
-  fill(200);
-
 
   // Carregando partes do Relógio
   botao.show(220,0, botaoPressionado);
@@ -85,29 +84,12 @@ void draw() {
     sphere(5);
   popMatrix();
 
-
-
 }
 
 void keyPressed(){
 
-   // if(key=='d' || key=='D'){
-   //   song.play();
-   //   song.unmute();
-   // }
-   //
-   // if(key=='f' || key=='F'){
-   //   song.mute();
-   // }
-
   if(key=='a' || key == 'A'){
     push();
-      textSize(22);
-      text("Ortho mode: [A KeyPressed] | Luz direcional", -380, -270);
-      text("mouseX: "+mouseX, -380, -240);
-      text("mouseY: "+mouseY, -380, -210);
-      fill(200);
-
       directionalLight(0, 0, 100, 400, 0, 0);
       ortho(-width/2, width/2, -height/2, height/2);
     pop();
@@ -116,25 +98,21 @@ void keyPressed(){
 
   if(key == 's' || key == 'S'){
      push();
-      textSize(22);
-      text("Perspective mode: [S KeyPressed] | Luz ambiente", -380, -270);
-      text("mouseX: "+mouseX, -380, -240);
-      text("mouseY: "+mouseY, -380, -210);
-      fill(200);
 
       ambientLight(0, 0, 100, 400, 0, 0);
       float camY = height/2.0;
-      float fov = mouseX/float(width) * PI/2;
+      float fov = 500/float(width) * PI/2;
       float camZ = camY / tan(fov/2.0);
       float aspect = float(width)/float(height);
       perspective(fov, aspect, camZ/10, camZ*100);
       pop();
   }
 
-  if(key == ' '){
+   if(key == ' '){
       botaoPressionado = !botaoPressionado;
+      flag = !flag;
+      botao.play(flag);
   }
-
 }
 
 void keyReleased(){
@@ -172,6 +150,10 @@ void mouseWheel(MouseEvent event) {
   float e = event.getCount();
   zoom += e*10;
 }
+
+
+
+
 
 void camera(){
   translate(mX, mY, zoom);

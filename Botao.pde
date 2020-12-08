@@ -1,6 +1,7 @@
 // Botão para ligar luz (Nem todo relógio tem)
 class Botao{
 
+  boolean flag;
   Voxel botao;
 
   Botao(){
@@ -12,12 +13,22 @@ class Botao{
   void show(int x, int y, boolean pressionado){
 
     push();
-    translate(x,y);
-    botao(pressionado);
+      translate(x,y);
+      botao(pressionado);
     pop();
 
   }
-
+  
+  void play(boolean flag){
+    if(flag){
+      song.play();
+      song.unmute();
+    }
+    else{
+      song.mute();
+    }
+  }
+  
   void botao(boolean pressionado){
 
     if(pressionado){

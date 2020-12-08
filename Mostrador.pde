@@ -101,7 +101,7 @@ class Mostrador {
 
     push();
     translate(x,y,z);
-
+  
     voxel.show(0,0,  red);
     voxel.show(10,0, red);
     voxel.show(20,0, red);
