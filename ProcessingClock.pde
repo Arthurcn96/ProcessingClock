@@ -138,7 +138,9 @@ void keyPressed(){
 }
 
 void keyReleased(){
-  botaoPressionado = !botaoPressionado;;
+  if(key == ' '){
+      botaoPressionado = !botaoPressionado;
+  }
 }
 
 /**
