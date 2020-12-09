@@ -24,6 +24,9 @@ int dim = 8;
 int tam = 50;
 
 void setup() {
+
+  inicio();
+
   size(800, 600, P3D);
   cursor(HAND);
   minim = new Minim(this);
@@ -50,7 +53,6 @@ void setup() {
 
   imagem = loadImage("fundo.jpg");
 
-  inicio();
 }
 
 void inicio(){
@@ -101,7 +103,7 @@ void keyPressed(){
 
       ambientLight(0, 0, 100, 400, 0, 0);
       float camY = height/2.0;
-      float fov = 500/float(width) * PI/2;
+      float fov = 550/float(width) * PI/2;
       float camZ = camY / tan(fov/2.0);
       float aspect = float(width)/float(height);
       perspective(fov, aspect, camZ/10, camZ*100);
