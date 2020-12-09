@@ -1,4 +1,4 @@
-// Voxel do relógio
+// Voxel (Pixel 3D)
 class Voxel {
 
   PVector pos;

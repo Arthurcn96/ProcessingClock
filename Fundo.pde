@@ -1,4 +1,4 @@
-// Mecanismo interno
+// Fundo do relogio
 class Fundo{
 
   Fundo(){

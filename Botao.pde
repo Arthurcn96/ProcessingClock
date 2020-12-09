@@ -1,4 +1,4 @@
-// Botão para ligar luz (Nem todo relógio tem)
+// Botão para ligar a trilha sonora do programa
 class Botao{
 
   boolean flag;
@@ -18,7 +18,7 @@ class Botao{
     pop();
 
   }
-  
+
   void play(boolean flag){
     if(flag){
       song.play();
@@ -28,7 +28,7 @@ class Botao{
       song.mute();
     }
   }
-  
+
   void botao(boolean pressionado){
 
     if(pressionado){
