@@ -1,4 +1,7 @@
-# ProcessingClock
+<h1 align="center">
+  🕗 ProcessingClock
+</h1>
+ 
 Desenvolvimento de um projeto usando os recursos do Processing de um relógio 3D para matéria de Computação Gráfica
 
 
